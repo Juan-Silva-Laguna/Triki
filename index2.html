@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>o X o x</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .sinRelleno{
+            background-color: transparent; 
+            border: transparent;
+        }
+        b{
+            color: rgb(114, 107, 114);
+        }
+        .border-3 {
+            border-width:5px !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- QUEDO A MEDIAS -->
+    <div class="container">
+        <div class="text-center mt-5">
+            <h2>Triki</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-6 col-sm-6">
+                <div><b>PUNTAJE JUGADOR 1: <span id="puntJug1"></span></b></div>
+                <br>
+                <div><b>PUNTAJE JUGADOR 2: <span id="puntJug2"></span></b></div>
+            </div>
+            <div class="col-md-6 col-6 col-sm-6 text-right" style="display: none;" id="inicio">                
+                <button class="text-right btn btn-danger mt-2" onclick="iniciar()">INICIAR</button>
+            </div>
+        </div>        
+        <div class="row">
+            <div  style="height: 70px;" class="col-md-3 col-3 col-sm-3 mt-3"></div>
+            <button style="height: 70px;" class="col-md-2 col-2 col-sm-2 mt-3 border-3 border-right border-bottom sinRelleno" onclick="enviarDato(11)" id="11"><b></b></button>
+            <button style="height: 70px;" class="col-md-2 col-2 col-sm-2 mt-3 border-3 border-bottom sinRelleno" onclick="enviarDato(12)" id="12"><b></b></button>
+            <button style="height: 70px;" class="col-md-2 col-2 col-sm-2 mt-3 border-3  border-left border-bottom sinRelleno"  onclick="enviarDato(13)" id="13"><b></b></button>
+            <div  style="height: 70px;" class="col-md-3 col-3 col-sm-3 mt-3"></div>
+
+            <div  style="height: 70px;" class="col-md-3 col-3 col-sm-3"></div>
+            <button style="height: 70px;" class="col-md-2 col-2 col-sm-2 border-3 border-right sinRelleno" onclick="enviarDato(21)" id="21"><b></b></button>
+            <button style="height: 70px;" class="col-md-2 col-2 col-sm-2 sinRelleno"  onclick="enviarDato(22)" id="22"><b></b></button>
+            <button style="height: 70px;" class="col-md-2 col-2 col-sm-2 border-3 border-left  sinRelleno"  onclick="enviarDato(23)" id="23"><b></b></button>
+            <div  style="height: 70px;" class="col-md-3 col-3 col-sm-3"></div>
+
+            <div  style="height: 70px;" class="col-md-3 col-3 col-sm-3"></div>
+            <button style="height: 70px;" class="col-md-2 col-2 col-sm-2 border-3  border-right border-top sinRelleno" onclick="enviarDato(31)" id="31"><b></b></button>
+            <button style="height: 70px;" class="col-md-2 col-2 col-sm-2 border-3 border-top  sinRelleno"  onclick="enviarDato(32)" id="32"><b></b></button>
+            <button style="height: 70px;" class="col-md-2 col-2 col-sm-2 border-3 border-left border-top sinRelleno"  onclick="enviarDato(33)" id="33"><b></b></button>
+            <div  style="height: 70px;" class="col-md-3 col-3 col-sm-3"></div>
+        </div>
+        <div class="text-center mt-5">
+            <h4>TURNO</h4>
+            <b id="jugador">JUGADOR 1 <br> <span style="color: red">X</span></b>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        let puntJug1=0;
+        let puntJug2=0;
+        let ganador = 0;
+        let contador = 0;
+        let jugador1= [];
+        let jugador2= [];
+        let jugadas = [[11,21,31], [12,22,32], [13,23,33], [11,12,13], [21,22,23], [31,32,33], [13,22,31], [11,22,33]];
+        function enviarDato(dato) {            
+            contador ++;
+            if (contador % 2 == 1) {
+                jugador1.push(dato);
+                $('#jugador').html(`JUGADOR 2 <br> <span style="color: blue">O</span>`);
+                $('#'+dato).html(`<span style="color: red; font-size: medium">X</span>`);
+            }else if (contador % 2 == 0) {
+                jugador2.push(dato);
+                $('#jugador').html(`JUGADOR 1 <br> <span style="color: red">X</span>`);
+                $('#'+dato).html(`<span style="color: blue; font-size: medium">O</span>`);
+            }
+            $('#'+dato).attr('disabled', 'true');
+
+            if (contador>=5) {
+                jugador1.sort((a, b) => a - b );
+                jugador2.sort((a, b) => a - b );
+                console.log(jugador1);
+
+                for (let i = 0; i < jugadas.length; i++) {
+                    if (jugador1[0]==jugadas[i][0] && jugador1[1]==jugadas[i][1] && jugador1[2]==jugadas[i][2]) {
+                        ganador =1;
+                        break;
+                    }
+
+                    if (jugador2[0]==jugadas[i][0] && jugador2[1]==jugadas[i][1] && jugador2[2]==jugadas[i][2]) {
+                        ganador =2;
+                        break;
+                    }
+                }
+                
+            }
+
+            if (ganador!=0) {
+                if (ganador==1) {
+                    puntJug1 += 100;
+                    $('#puntJug1').html(puntJug1);
+                }else{
+                    puntJug2 += 100;
+                    $('#puntJug2').html(puntJug2);
+                }
+                $('#jugador').html(`<div class="alert alert-success">GANO EL JUGADOR ${ganador}</div>`);
+                $('#inicio').css('display','block');
+            }
+
+            if (contador == 9 && ganador==0) {
+                $('#jugador').html(`<div class="alert alert-danger">NO HUBO UN GANADOR</div>`);
+                $('#inicio').css('display','block');
+            }
+        }
+
+        function iniciar(params) {
+            $('button').html('');
+            $('button').removeAttr("disabled");
+            jugador1= [];
+            jugador2= [];
+            ganador=0;
+            contador=0;
+        }
+    </script>
+</body>
+</html>
